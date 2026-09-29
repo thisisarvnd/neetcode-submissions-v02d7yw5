@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int BinSearch(int min, int max, int tg, vector<int>& numbers){
+            while (min <= max){
+                int mid = min + (max - min) / 2;
+                if (numbers[mid] == tg)
+                    return max;
+                else if (numbers[mid] < tg)
+                    return BinSearch(mid+1,max,tg, numbers);
+                else if (numbers[mid] > tg)
+                    return BinSearch(min,mid-1,tg, numbers);
+            }
+            return -1; 
+        }
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int length = numbers.size();
+        vector<int> arr;
+        for (int i = 0; i < length; i++){
+            int first_element = numbers[i];
+            int difference = target - first_element;
+            int value = BinSearch(i+1, length-1, difference, numbers);
+            if (value == -1)
+                continue;
+            arr.insert(arr.end(), {i+1,value+1});
+            break;
+        }
+        return arr;
+    }
+};
